@@ -1,6 +1,6 @@
 -- SQL queries for london_bicycles public dataset on BigQuery
 
--- Station useage query: This query returns all stations with the total number of times they have been used, also broken down by their usage as a start or end station.
+-- Station useage query: This query returns all stations with the total number of times they have been used, also broken down by their usage as a start or end station. Additionally it returns the longitude and latitude of each station, in preparation for geographical visualisation.
 
 WITH starts AS (
   SELECT
@@ -19,23 +19,39 @@ ends AS (
     `bigquery-public-data.london_bicycles.cycle_hire`
   GROUP BY
     end_station_name 
-)
+),
+locations AS (
+  SELECT
+    name,
+    latitude,
+    longitude
+  FROM
+    `bigquery-public-data.london_bicycles.cycle_stations`
+  )
 
 SELECT 
   starts.start_station_name AS station,
   starts.start_count,
   ends.end_count,
-  SUM(ends.end_count + starts.start_count) AS total_count
+  SUM(ends.end_count + starts.start_count) AS total_count,
+  locations.longitude AS longitude,
+  locations.latitude AS latitude
 FROM 
   starts
 JOIN 
   ends
 ON
   starts.start_station_name = ends.end_station_name
+JOIN
+  locations
+ON
+  ends.end_station_name = locations.name
 GROUP BY
   station,
   starts.start_count,
-  ends.end_count
+  ends.end_count,
+  longitude,
+  latitude
 ORDER BY
   total_count DESC
 
