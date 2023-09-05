@@ -4,23 +4,21 @@
 
 WITH starts AS (
   SELECT
-      start_station_id,
       start_station_name,
-      count(start_station_id) AS start_count
+      count(start_station_name) AS start_count
     FROM 
       `bigquery-public-data.london_bicycles.cycle_hire` 
     GROUP BY
-      start_station_id,
       start_station_name
 ),
 ends AS (
   SELECT
-    end_station_id,
-    count(end_station_id) AS end_count,
+    end_station_name,
+    count(end_station_id) AS end_count
   FROM 
     `bigquery-public-data.london_bicycles.cycle_hire`
   GROUP BY
-    end_station_id   
+    end_station_name 
 )
 
 SELECT 
@@ -33,7 +31,7 @@ FROM
 JOIN 
   ends
 ON
-  starts.start_station_id = ends.end_station_id
+  starts.start_station_name = ends.end_station_name
 GROUP BY
   station,
   starts.start_count,
@@ -47,7 +45,6 @@ WITH end_locations AS (
   SELECT
     hires.rental_id AS rental_id,
     hires.end_station_name AS end_name,
-    hires.end_station_id,
     stations.latitude AS end_lat,
     stations.longitude AS end_long,
     hires.duration AS duration
@@ -56,19 +53,17 @@ WITH end_locations AS (
   INNER JOIN
     `bigquery-public-data.london_bicycles.cycle_stations` AS stations
   ON
-    hires.end_station_id = stations.id
+    hires.end_station_name = stations.name
   GROUP BY
     rental_id,
     end_name,
-    hires.end_station_id,
-    stations.latitude,
-    stations.longitude,
+    end_lat,
+    end_long,
     duration
 ),
 start_locations AS (
   SELECT
     rental_id,
-    hires.start_station_id,
     hires.start_station_name AS start_name,
     stations.latitude AS start_lat,
     stations.longitude AS start_long
@@ -77,13 +72,12 @@ start_locations AS (
   INNER JOIN
     `bigquery-public-data.london_bicycles.cycle_stations` AS stations
   ON
-    hires.start_station_id = stations.id
+    hires.start_station_name = stations.name
   GROUP BY
     rental_id,
     start_name,
-    hires.start_station_id,
-    stations.latitude,
-    stations.longitude
+    start_lat,
+    start_long
 )
 
 SELECT
