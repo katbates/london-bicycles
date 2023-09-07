@@ -1,5 +1,4 @@
-# london-bicycles project in SQL and Tableau
-
+# london-bicycles project in SQL
 ## Overview
 This project uses the london_bicycles public dataset on BigQuery. I run SQL queries to gather insights from the dataset about bike useage in London. 
 
