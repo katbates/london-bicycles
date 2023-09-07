@@ -1,7 +1,7 @@
 # london-bicycles project in SQL and Tableau
 
 ## Overview
-This project uses the london_bicycles public dataset on BigQuery. I run SQL queries to gather insights from the dataset about bike useage in London. I then export the output to tableau to visualise the insights. 
+This project uses the london_bicycles public dataset on BigQuery. I run SQL queries to gather insights from the dataset about bike useage in London. 
 
 The questions I asked of the data were:
 1. What is the most popular cycle station?
