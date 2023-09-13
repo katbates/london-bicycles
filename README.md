@@ -15,5 +15,8 @@ The london_bicycles public dataset on BigQuery contains two tables (cycle_hires 
 * Copy the SQL queries into BigQuery to run them
 * Download the csv files for output of queries (except 'date query' as csv is too large to upload)
 
+## Visualisations
+* Visualisations created using Tableau can be found on my [Tableau Public profile](https://public.tableau.com/app/profile/kat4197).
+
 ## Acknowledgements
 BigQuery for providing the london_bicycles public dataset.
