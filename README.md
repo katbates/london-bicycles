@@ -13,7 +13,7 @@ You can [view the dashboard in full and download the workbook](https://public.ta
 ![useage_dashboard_image](useage_dashboard_image.png)
    
 ## Dataset
-The london_bicycles public dataset on BigQuery contains two tables (cycle_hires and stations) and has data for all rides between 2015 and 2022. 
+The london_bicycles public dataset on BigQuery contains two tables (cycle_hires and stations) and has 83,000,000 rows of data for all rides between 2015 and 2022. 
 
 ## Project use
 * Copy the SQL queries into BigQuery to run them
